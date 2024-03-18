@@ -1,0 +1,49 @@
+{% extends 'base_forum.html' %}
+{% load static %}
+{% block 'title' %} Nova Postagem{% endblock%}
+{% block 'head' %}
+   <link href="{% static 'css/new_post.css' %}" rel="stylesheet"> 
+   
+    
+{% endblock %}
+
+{% block 'body' %}
+    <div class="wrapper">
+    <div class="box container">
+        <div class="row justify-content-center">
+            <div class="col-md-7">
+                <br>
+                <h3>Nova Postagem</h3>
+                <form action="{% url 'new_post' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="subject">Assunto</label>
+                        <input type="text" name="subject" id="subject" class="form-control" required>
+                    </div>
+                    <input type="hidden" name="author" value="{{ user.id }}">
+                    <div class="form-group">
+                        <label for="category">Categoria</label>
+                        <select name="category" id="category" class="form-control" required>
+                            <option value="" disabled selected>Selecione a categoria</option>
+                            {% for category in category_choices %}
+                                <option value="{{ category.0 }}">{{ category.1 }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="image">Imagem</label>
+                        <input type="file" name="image" id="image" class="form-control-file">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Mensagem</label>
+                        <textarea name="message" id="message" class="form-control" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success">Criar Post</button>
+                </form>
+            </div>
+        </div>
+        
+    </div>
+    </div>
+
+{% endblock %}

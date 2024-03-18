@@ -1,14 +1,15 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
-from .forms import CustomAuthorCreateForm, CustomAuthorChangeForm
 from .models import CustomAuthor
+from django.contrib.auth import admin as admin_auth_django
+from .forms import UserChangeForm, UserCreationForm
+
 
 @admin.register(CustomAuthor)
-class CustomAuthorAdmin(UserAdmin):
-    add_form = CustomAuthorCreateForm
-    form = CustomAuthorChangeForm
+class UserAdmin(admin_auth_django.UserAdmin):
+    form = UserChangeForm
+    add_form = UserCreationForm
     model = CustomAuthor
-    list_display = ('email', 'first_name', 'last_name', 'date_birth', 'sex', 'is_staff')  
+    list_display = ("email", "first_name", "last_name", "is_staff")
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         ('Informações Pessoais', {'fields': ('first_name', 'last_name', 'date_birth', 'sex')}),
@@ -21,3 +22,4 @@ class CustomAuthorAdmin(UserAdmin):
         if obj:  # Se estiver editando um objeto existente
             readonly_fields += ('email', 'creation_date', 'change_date')
         return readonly_fields
+    

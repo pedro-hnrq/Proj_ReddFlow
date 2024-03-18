@@ -1,0 +1,23 @@
+{% extends 'base_forum.html' %}
+{% load static %}
+
+{% block 'title' %}Editar Post{% endblock %}
+{% block 'head' %}
+
+    <link rel="stylesheet" href="{% static 'css/new_post.css' %}">
+{% endblock %}
+{% block 'body' %}
+         <div class="box container">
+                  <div class="row justify-content-center">
+                           <div class="col-md-7">
+                           <br>
+                           <h3>Editar Post</h3>
+                                    <form method="post" enctype="multipart/form-data">
+                                             {% csrf_token %}
+                                             {{ form.as_p }}
+                                             <button class="btn btn-secondary" type="submit">Salvar Alterações</button>
+                                    </form>
+                           </div>         
+                  </div>
+         </div>
+{% endblock %}
