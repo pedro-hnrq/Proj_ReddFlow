@@ -1,0 +1,93 @@
+{% load static %}
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    {% block 'head' %}{% endblock %}
+    <title>{% block 'title' %}{% endblock%} ReddFlow</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link rel="icon" href="{% static 'img/logo_reddflow.png' %}" alt="ReddFlow" width="100" height="100">
+    
+    <!-- CSS -->
+    <link href="{% static 'css/base_forum.css' %}" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!--    Boxicons CSS -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <!--  Fontawesome CDN Link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+    <!-- Fontes Google   -->
+
+    <!-- Biblioteca jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <link href="{% static 'css/notifications.css' %}" rel="stylesheet">
+    
+</head>
+
+<body>
+
+    <div class="notifications">
+                  {% for message in messages %}                         
+                           <div class=" alert {{ message.tags }}" id="notification">
+                                    {{ message }}
+                                    </div>           
+                  {% endfor %}
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-nav">
+        <div class="container">
+            <a class="navbar-brand mx-auto" href="{% url 'topic_view' %}">
+                <img src="{% static 'img/logo_reddflow.png' %}" width="40" height="40" class="d-inline-block align-top" alt="">
+                ReddFlow</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+                <ul class="navbar-nav">
+                    
+                    <li class="nav-item">
+                       
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Conta</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'register' %}">Sign Up</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    {% block 'body' %}{% endblock%}
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; {% now 'Y' %} ReddFlow</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

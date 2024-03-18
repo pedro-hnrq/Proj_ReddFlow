@@ -1,0 +1,28 @@
+{% extends 'base_forum.html' %}
+{% load static %}
+
+{% block 'title' %}Excluir Post - {% endblock %}
+
+{% block 'head' %}
+   <link href="{% static 'css/new_post.css' %}" rel="stylesheet"> 
+   
+    
+{% endblock %}
+
+{% block 'body' %}
+         <div class="wrapper">
+                  <div class="box container">
+                           <div class="row justify-content-center">
+                                    <div class="col-md-7">
+                                    <br>
+                                    <h3>Excluir Post</h3>
+                                    <p>Tem certeza de que deseja excluir o post "{{ post.subject }}"?</p>
+                                    <form method="post">{% csrf_token %}
+                                             <button class="btn btn-danger" type="submit">Confirmar Exclusão</button>
+                                    </form>
+                                    </div>
+                           </div>
+                  </div>
+         </div>
+         
+{% endblock %}

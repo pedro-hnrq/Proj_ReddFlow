@@ -1,0 +1,31 @@
+/* Definição de variáveis */
+:root {
+         --main-color: #201F1F;
+         --dark-color: #1C1A1A;
+         --contrast-color: #BE375F;
+         --differential-color: #ED8554;
+}
+
+body {
+
+         background-color: #C6C6C6 !important;
+
+}
+
+.bg-nav {
+         background-color: #4a1141 !important;
+         padding: 10px;
+}
+
+
+/* Estilos para a barra de rodapé */
+.footer {
+         background-color: #162b46;
+         color: #0a0404;
+         padding-top: 25px;
+         text-align: center;
+         justify-content: end;
+         display: inline;
+         
+         
+}

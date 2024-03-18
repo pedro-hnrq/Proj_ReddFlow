@@ -1,0 +1,66 @@
+{% extends 'base_forum.html' %}
+{% load static %}
+{% block 'title' %}Comentários - {% endblock%}
+{% block 'head' %}
+   <link href="{% static 'css/new_post.css' %}" rel="stylesheet"> 
+{% endblock %}
+
+{% block 'body' %}
+<div class="wrapper">
+    <div class="box container">
+        <div class="row justify-content-center">
+            
+                <div class="col-md-2">
+                    <img width="100%" src="{{ topic.image.url }}">
+                </div>
+                <div class="col-md-7">
+                    <h2>Forum</h2>
+                    <p>Assunto: {{ topic.subject }}</p>
+                    <p>Categoria: {{ topic.category }}</p>
+                    <p>Mensagem: {{ topic.message }}</p>
+                </div>
+                <div class="col-md-2">
+                    <p>Autor(a): {{ topic.author.first_name }} {{ topic.author.last_name }}</p>
+                    <p>E-mail: {{ topic.author }}</p>
+                    <p>Data da Postagem: {{ topic.date_posted|date:"d/m/Y" }}</p>
+                    <p>Hórario da Postagem: {{ topic.date_posted|time:"H:i:s" }}</p>
+                </div>
+            
+            
+
+            <div class="col-md-7">
+                <br>
+                <h3>Comentários</h3>
+                <form action="{% url 'comment' topic.id %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" name="topic_id" value="{{ topic_id }}">
+                    <div class="form-group">
+                        <label for="message">Mensagem</label>
+                        <textarea name="message" id="message" class="form-control" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success">Comentar</button>
+                </form>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-7">
+                <br>
+                
+                {% if comments %}
+                <ul class="list-group">
+                    {% for comment in comments %}
+                    <li class="list-group-item">
+                        <p><strong>Comentarista:</strong> {{ comment.Commentator.first_name }} {{ comment.Commentator.last_name }} ({{ comment.Commentator}})</p>
+                        <p><strong>Data de Postagem:</strong> {{ comment.date_posted }}</p>
+                        <p><strong>Mensagem:</strong> {{ comment.message }}</p>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p>Nenhum comentário encontrado.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
