@@ -11,7 +11,11 @@
         <div class="row justify-content-center">
             
                 <div class="col-md-2">
-                    <img width="100%" src="{{ topic.image.url }}">
+                    {% if topic.image %}
+                        <img width="100%" src="{{ topic.image.url }}">
+                    {% else %}
+                        <p>Descrição da imagem relacionada ao assunto: {{ topic.image_description }}</p>
+                    {% endif %}
                 </div>
                 <div class="col-md-7">
                     <h2>Forum</h2>
@@ -24,9 +28,7 @@
                     <p>E-mail: {{ topic.author }}</p>
                     <p>Data da Postagem: {{ topic.date_posted|date:"d/m/Y" }}</p>
                     <p>Hórario da Postagem: {{ topic.date_posted|time:"H:i:s" }}</p>
-                </div>
-            
-            
+                </div>            
 
             <div class="col-md-7">
                 <br>
@@ -38,7 +40,11 @@
                         <label for="message">Mensagem</label>
                         <textarea name="message" id="message" class="form-control" required></textarea>
                     </div>
-                    <button type="submit" class="btn btn-success">Comentar</button>
+                        {% if request.user.is_authenticated %}
+                            <button type="submit" class="btn btn-success">Comentar</button>
+                        {% else %}
+                            <button type="button" class="btn btn-success" disabled>Comentar (Faça login para comentar)</button>
+                        {% endif %}
                 </form>
             </div>
         </div>

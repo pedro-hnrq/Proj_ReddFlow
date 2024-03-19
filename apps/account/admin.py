@@ -20,6 +20,6 @@ class UserAdmin(admin_auth_django.UserAdmin):
     def get_readonly_fields(self, request, obj=None):
         readonly_fields = super().get_readonly_fields(request, obj)
         if obj:  # Se estiver editando um objeto existente
-            readonly_fields += ('email', 'creation_date', 'change_date')
+            readonly_fields += ('creation_date', 'change_date')
         return readonly_fields
     

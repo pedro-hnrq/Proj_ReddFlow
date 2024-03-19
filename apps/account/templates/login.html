@@ -1,0 +1,27 @@
+{% extends 'base_account.html'%}
+{% load static %}
+{% block 'head' %}{% endblock  %}
+{% block 'title' %}Login - {% endblock  %}
+
+{% block 'body' %}
+    
+        
+        
+
+        
+         <form action="{% url 'login' %}" method="POST">{% csrf_token %}
+         <img src="{% static 'img/logo_reddflow.png' %}" alt="ReddFlow" width="100" height="100">
+                <h2>Lagar-se</h2>
+
+                <h5 class="h3 mb-3 font-weight-normal">Informe seus dados</h5>
+                <hr>
+               
+                {{auth_form.as_p}}
+                
+                <input type="submit" value="Acessar" class="btn btn-lg btn-primary btn-block">
+                <a href="{% url 'register' %}" class="btn btn-main">Register-se</a>
+               
+         </form>
+        
+    
+{% endblock %}

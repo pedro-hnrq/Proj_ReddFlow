@@ -21,6 +21,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
 DOMAIN = config('DOMAIN', cast=str)
 
 # Application definition
@@ -72,13 +73,23 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-# TODO: PostgreSQL
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    'default':  {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('DB_POSTGRES_DB'),
+        'USER': config('DB_POSTGRES_USER'),
+        'PASSWORD': config('DB_POSTGRES_PASSWORD'),
+        'HOST': config('DB_POSTGRES_HOST'),
+        'PORT': config('DB_POSTGRES_PORT'),
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 # Password validation
@@ -134,25 +145,25 @@ AUTH_USER_MODEL = 'account.CustomAuthor'
 # LOGIN_REDIRECT_URL = 'index'
 # LOGOUT_REDIRECT_URL = 'index'
 
-AUTHENTICATION_BACKENDS = (
-    'account.backends.CustomBackend',
-)
+# AUTHENTICATION_BACKENDS = (
+#     'account.backends.CustomBackend',
+# )
 
 
 # EMAIL
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-# if DEBUG:
-    
-# else:
-#     # TODO: confirar envio de emails
-#     pass
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+else:
+    # TODO: email profissional
+    # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    # EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+    # EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+    # EMAIL_PORT = config('EMAIL_PORT')
+    # EMAIL_HOST = config('EMAIL_HOST')
+    # EMAIL_USE_TLS = config('EMAIL_USE_TLS')
+    pass
 
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-# EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-# EMAIL_PORT = config('EMAIL_PORT')
-# EMAIL_HOST = config('EMAIL_HOST')
-# EMAIL_USE_TLS = config('EMAIL_USE_TLS')
+
 
 # Mensages
 

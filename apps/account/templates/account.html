@@ -1,0 +1,27 @@
+{% extends 'base_forum.html' %}
+{% load static %}
+
+{% block 'title' %}Minha Conta - {% endblock %}
+
+{% block 'head' %}
+         <link href="{% static 'css/new_post.css' %}" rel="stylesheet">
+{% endblock  %}
+
+{% block 'body' %}
+         <div class="wrapper">
+         <div class="box container">
+                  <div class="row justify-content-center">
+                  <div class="col-md-7">
+                  <br>
+                           <h3>Conta</h3>
+                           <form method="post" enctype="multipart/form-data">
+                           {% csrf_token %}
+                           {{ user_form.as_p }}
+                           <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                           
+                           </form>
+                  </div>
+                  </div>
+         </div>
+         </div>
+{% endblock %}
