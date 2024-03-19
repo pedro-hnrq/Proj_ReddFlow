@@ -1,9 +1,19 @@
 
 <h1 align="center"> Projeto ReddFlow </h1>
 
-<!-- badges -->
+<div align="center">
+
+<img alt="GitHub Language Count" src="https://img.shields.io/github/languages/count/pedro-hnrq/Proj_ReddFlow" />
+<img alt="GitHub Top Language" src="https://img.shields.io/github/languages/top/pedro-hnrq/Proj_ReddFlow" />
+<img alt="" src="https://img.shields.io/github/repo-size/pedro-hnrq/Proj_ReddFlow" />
+<img alt="Github License" src="https://img.shields.io/github/license/pedro-hnrq/Proj_ReddFlow" />
+
+</div>
 
 <h2 align="center">📷 Prévia <h2>
+
+![topi_view](https://github.com/pedro-hnrq/Proj_ReddFlow/assets/74242717/6466d014-6675-4fe4-9498-fe24307a6127)
+
 
 <h3>🎯 Objetivo</h3>
 
@@ -27,7 +37,7 @@ Antes de começar, verifique se você atendeu aos seguintes requisitos:
 Faça o clone do projeto:
 
 ```
-git@github.com:pedro-hnrq/Proj_ReddFlow
+git@github.com:pedro-hnrq/Proj_ReddFlow.git
 ```  
 Após clonar o repositório acesse o diretório
 ```
@@ -62,7 +72,7 @@ pip install -r requirements.txt
 execute os comandos abaixo para criar arquivo de variáveis de ambiente a partir de exemplos. (Lembre-se de modificá-los)
 
 ```bash
-mv env .env
+mv #env .env
 ```
 #### Execução na máquina
 
@@ -81,11 +91,7 @@ Executando a aplicação
 python manage.py runserver
 ```
 
-#### Realizar Teste
 
-```python
-python manage.py test
-```
 
 ## Licença
 [MIT License](LICENSE)
