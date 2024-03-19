@@ -36,10 +36,9 @@
                         <th>Categoria</th>
                         <th>Mensagem</th>
                         <th>Usuário</th>
-                        <th>Data</th>
-                        {% if user.is_authenticated %}
-                            <th>Ações</th>
-                        {% endif %}
+                        <th>Data</th>                        
+                        <th>Ações</th>
+                        
                     </tr>
                     {% for post in posts %}
                     <tr class="{% cycle 'linha' 'linha2' %}">

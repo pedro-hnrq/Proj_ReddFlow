@@ -1,5 +1,6 @@
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from django import forms
+from django.forms import ModelForm
 from django.contrib.auth import login, authenticate
 from django.core.exceptions import ValidationError
 from .validators import validate_age_18_or_above
@@ -9,13 +10,13 @@ class CustomAuthorCreateForm (UserCreationForm):
      
      class Meta:
           model = CustomAuthor
-          fields = ['first_name', 'last_name',]
-          labels = {'email': 'E-mail'}
+          fields = ['first_name', 'last_name']
+          labels = {'username': 'E-mail'}
           
      def save(self, commit=True):
           user = super().save(commit=False)
           user.set_password(self.cleaned_data["password1"])
-          user.email = self.cleaned_data["email"]
+          user.email = self.cleaned_data["username"]
           if commit:
                user.save()
           return user
@@ -24,22 +25,27 @@ class CustomAuthorChangeForm(UserChangeForm):
      
      class Meta:
           model = CustomAuthor
-          fields = ['first_name', 'last_name', 'date_birth', 'sex', 'email']
+          fields = ['first_name', 'last_name',  'date_birth', 'sex', ]
 
 
 class RegisterForm(CustomAuthorCreateForm):
     '''Formulário para cadastro de usuários sem permissões 
-    administrativas apartir do Email, first_name, last_name, date_birth, sex e senha'''
+    administrativas a partir do Email, first_name, last_name, date_birth, sex e senha'''
 
-    date_birth = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
+    # Substitua 'email' por 'username'
+    username = forms.EmailField(
+        label='E-mail',
+        max_length=254,
+        widget=forms.EmailInput(attrs={'class': 'form-control'})
+    )
 
     class Meta:
         model = CustomAuthor
-        fields = ('first_name', 'last_name', 'email', 'date_birth', 'sex', 'password1', 'password2')
+        fields = ('first_name', 'last_name', 'username', 'date_birth', 'sex', 'password1', 'password2')
         labels = {
             'first_name': 'Nome',
             'last_name': 'Sobrenome',
-            'email': 'E-mail',
+            'username': 'E-mail',
             'date_birth': 'Data de Nascimento',
             'sex': 'Sexo',
             'password1': 'Senha',
@@ -49,10 +55,9 @@ class RegisterForm(CustomAuthorCreateForm):
             'date_birth': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
             'sex': forms.Select(choices=CustomAuthor.SEX_CHOICES, attrs={'class': 'form-control'}),
         }
-    
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # self.fields['date_birth'].widget.attrs.update({'class': 'form-control'})
         for field in self.fields:
             if 'password' in field:
                 self.fields[field].help_text = None
@@ -63,8 +68,8 @@ class RegisterForm(CustomAuthorCreateForm):
         validate_age_18_or_above(date_birth)
         return date_birth
 
-    def clean_email(self):
-        email = self.cleaned_data['email']
+    def clean_username(self):
+        email = self.cleaned_data['username']
         if CustomAuthor.objects.filter(email=email).exists():
             raise forms.ValidationError("Este endereço de email já existe.")
         return email
@@ -104,7 +109,7 @@ class AuthForm(forms.Form):
     def clean(self):
         email = self.cleaned_data.get('email')
         password = self.cleaned_data.get('password')
-        self.user = authenticate(username=email, password=password)
+        self.user = authenticate(email=email, password=password)
 
         if not self.user:
             raise self.get_invalid_login_error()
@@ -133,3 +138,10 @@ class AuthForm(forms.Form):
                 self.error_messages['inactive'],
                 code='inactive',
             )
+
+class UpdateForm(ModelForm):
+    class Meta:
+        model = CustomAuthor
+        fields = ['first_name', 'last_name', 'email', 'date_birth', 'sex']
+
+

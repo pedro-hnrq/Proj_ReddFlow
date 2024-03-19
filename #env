@@ -1,0 +1,17 @@
+SECRET_KEY=django-insecure-dy&f9(bxz4mm2ibwwchcaexgjfsjk#u@7()jxzm4fu61r))d=#
+
+DOMAIN=127.0.0.1:8000
+
+# BD - PostgreSQL
+DB_POSTGRES_DB=postgres
+DB_POSTGRES_USER=postgres
+DB_POSTGRES_PASSWORD=123456
+DB_POSTGRES_HOST=127.0.0.1
+DB_POSTGRES_PORT=5432
+
+#EMAIL
+EMAIL_HOST_USER=devsi.pf@gmail.com
+EMAIL_HOST_PASSWORD=sfcrptestmrjzxal 
+EMAIL_PORT=587
+EMAIL_HOST=smtp.gmail.com
+EMAIL_USE_TLS=True

@@ -8,8 +8,8 @@ __pycache__/
 
 #Others
 media
-account
-
+docker-compose.yml
+Dockerfile
 
 # Distribution / packaging
 .Python
