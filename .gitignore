@@ -5,11 +5,10 @@ __pycache__/
 
 # C extensions
 *.so
+*.vscode
 
 #Others
 media
-docker-compose.yml
-Dockerfile
 
 # Distribution / packaging
 .Python

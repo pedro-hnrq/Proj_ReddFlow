@@ -1,0 +1,57 @@
+version: "3.9"
+
+services:
+  db:
+    container_name: postgres-forum
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: dev@pg
+      POSTGRES_DB: forum
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5434:5432"
+    networks:
+      - forum
+
+  pgadmin:
+    container_name: postgres_pgadmin
+    image: dpage/pgadmin4
+    restart: unless-stopped
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@pgadmin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    ports:
+      - "5051:80"
+    networks:
+      - forum
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: django_forum
+    stdin_open: true
+    tty: true
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+      - .env:/app/.env
+    command: python manage.py runserver 0.0.0.0:8000
+    depends_on:
+      - db
+    networks:
+      - forum
+
+volumes:
+  pgdata:
+  pgadmin:
+
+networks:
+  forum:
