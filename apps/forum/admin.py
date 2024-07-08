@@ -3,11 +3,12 @@ from .models import Topic, Comment
 
 @admin.register(Topic)
 class TopicAdmin(admin.ModelAdmin):
-    list_display = ('subject', 'get_author_first_name', 'category', 'date_posted')
+    list_display = ('subject', 'get_author_first_name', 'category', 'date_posted', 'date_modified')
     search_fields = ('subject', 'author__first_name', 'author__last_name')  
     list_filter = ('category', 'date_posted')  
     date_hierarchy = 'date_posted'  
-
+    readonly_fields = ('date_posted', 'date_modified')
+    
     def get_author_first_name(self, obj):
         return obj.author.first_name
 
@@ -15,9 +16,10 @@ class TopicAdmin(admin.ModelAdmin):
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ('topic', 'get_commentator_first_name', 'date_posted')
+    list_display = ('topic', 'get_commentator_first_name', 'date_posted', 'date_modified')
     search_fields = ('topic__subject', 'Commentator__first_name', 'Commentator__last_name')  
     list_filter = ('date_posted',)  
+    readonly_fields = ('date_posted', 'date_modified')
     
     def get_commentator_first_name(self, obj):
         return obj.Commentator.first_name

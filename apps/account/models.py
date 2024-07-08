@@ -42,8 +42,8 @@ class CustomAuthor(AbstractUser):
     ]
 
     email = models.EmailField(_('E-mail'), unique=True)
-    first_name = models.CharField(_('Nome'), max_length=50, validators=[validate_name_characters])
-    last_name = models.CharField(_('Sobrenome'), max_length=50, validators=[validate_name_characters])
+    first_name = models.CharField(_('Nome'), max_length=50, validators=[validate_name_characters], db_index=True)
+    last_name = models.CharField(_('Sobrenome'), max_length=50, validators=[validate_name_characters], db_index=True)
     date_birth = models.DateField(_('Data de Nascimento'), validators=[validate_age_18_or_above], blank=True, null=True)
     sex = models.CharField(_('Sexo'), max_length=1, choices=SEX_CHOICES, blank=True)
     creation_date = models.DateTimeField(_('Data de Criação'), auto_now_add=True) 
@@ -54,6 +54,7 @@ class CustomAuthor(AbstractUser):
     REQUIRED_FIELDS = ['first_name', 'last_name']
 
     class Meta():
+        db_table = "authors"
         verbose_name = _("Autor")
         verbose_name_plural = _("Autores")
     

@@ -17,7 +17,7 @@
 
 <h3>🎯 Objetivo</h3>
 
-<h5 align="justify">O ReddFlow é um projeto desenvolvido como parte de um teste, com o propósito de criar uma plataforma interativa de fórum. Ele permite o gerenciamento de postagens e comentários, onde apenas usuários autenticados têm permissão para criar novas postagens e fazer comentários. Usuários anônimos têm acesso somente à visualização do conteúdo. Além disso, os usuários autenticados podem gerenciar sua própria conta.</h5>
+<h5 align="justify">O Projeto ReddFlow, inspirado em plataformas como StackOverflow e Reddit, é uma iniciativa com o propósito de criar um fórum interativo. Permite o gerenciamento de postagens e comentários, reservando essa funcionalidade apenas para usuários autenticados. Visitantes anônimos têm acesso somente à visualização do conteúdo. Além disso, os usuários autenticados podem gerenciar sua própria conta.</h5>
 
 
 <h4> 🚀 Como executar </h4>
@@ -113,10 +113,10 @@ Acesse o PGAdmin em [localhost:5051](http://localhost:5051) no seu navegador usa
  
  - General/name: _DB_
  - Connection/Host name: _DB_
- - Connection/Port: 5432 (default)
+ - Connection/Port: _5434 ou 5432 (default)_
  - Connection/Database: _forum_
- - Connection/Username: _Dev_
- - Connection/Password: _Dev@pg_
+ - Connection/Username: _dev_
+ - Connection/Password: _dev@pg_
 
 Os emails enviados podem ser visualizados no link [localhost:8000](http://localhost:8000)
 

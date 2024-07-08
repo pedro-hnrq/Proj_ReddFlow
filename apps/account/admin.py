@@ -1,11 +1,11 @@
 from django.contrib import admin
 from .models import CustomAuthor
-from django.contrib.auth import admin as admin_auth_django
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from .forms import UserChangeForm, UserCreationForm
 
 
 @admin.register(CustomAuthor)
-class UserAdmin(admin_auth_django.UserAdmin):
+class UserAdmin(BaseUserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
     model = CustomAuthor
@@ -15,11 +15,7 @@ class UserAdmin(admin_auth_django.UserAdmin):
         ('Informações Pessoais', {'fields': ('first_name', 'last_name', 'date_birth', 'sex')}),
         ('Permissões', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
         ('Datas importantes', {'fields': ('creation_date', 'change_date')}),
-    )
-
-    def get_readonly_fields(self, request, obj=None):
-        readonly_fields = super().get_readonly_fields(request, obj)
-        if obj:  # Se estiver editando um objeto existente
-            readonly_fields += ('creation_date', 'change_date')
-        return readonly_fields
+    )    
+    readonly_fields = ('creation_date', 'change_date')
+    search_fields = ('first_name', 'last_name')
     
